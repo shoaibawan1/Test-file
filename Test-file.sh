@@ -1,9 +1,16 @@
 #!/bin/bash
-echo 'Start Deployement'
+
+FILE_PATH=$(find / -type f -name "shoaib.html" 2>/dev/null)
+
+if [ -z "$FILE_PATH" ]; then
+    echo "File shoaib.html not found."
+    exit 1
+else
+    echo "File found at: $FILE_PATH"
+fi
+
+sudo cp "$FILE_PATH" /var/www/html/
+
 sudo systemctl start nginx
-sudo systemctl status nginx
-sudo systemctl restart nginx
-git clone https://github.com/shoaibawan1/Test-file.git
-cd Test-file
-sudo cp -r * /var/www/html
-echo 'Deployment Complete'
+
+echo "Complete Deployment."
